@@ -51,11 +51,14 @@ function insertShims(currentPath, field) {
       }
       Object.keys(sourcePackageJson[field]).forEach(replaced => {
         const replacer = sourcePackageJson[field][replaced];
-        if (
-          replacer !== packageJson.name &&
-          !(replaced in packageJson[field])
-        ) {
-          packageJson[field][replaced] = replacer;
+        if (typeof packageJson[field] === 'object')
+        {
+            if (
+              replacer !== packageJson.name &&
+              !(replaced in packageJson[field])
+            ) {
+              packageJson[field][replaced] = replacer;
+            }
         }
       });
       var nextFileContent = JSON.stringify(packageJson, null, "  ");
